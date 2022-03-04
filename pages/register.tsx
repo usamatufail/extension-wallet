@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import { register } from 'styles';
 import { TitleBar, Input } from 'components';
 import { Formik, Form } from 'formik';
-import { EmailPhone } from 'sections';
+import { EmailPhone, Verification } from 'sections';
 
 export interface SignUpFormValues {
   email: string;
@@ -39,6 +39,15 @@ const Home: NextPage = () => {
     }
   }, [step]);
 
+  const closeAction = () => {
+    switch (step) {
+      case 2:
+        return setStep(1);
+      default:
+        setStep((step) => step);
+    }
+  };
+
   const initialValues: SignUpFormValues = {
     email: '',
     phone: '',
@@ -62,7 +71,11 @@ const Home: NextPage = () => {
           ${register}
         `}
       >
-        <TitleBar close={step !== 1} text={titleText} />
+        <TitleBar
+          closeAction={closeAction}
+          close={step !== 1}
+          text={titleText}
+        />
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {
@@ -70,10 +83,13 @@ const Home: NextPage = () => {
             actions.setSubmitting(false);
           }}
           component={({ values }) => {
+            console.log(values);
             return (
               <Form>
                 {step === 1 && <EmailPhone values={values} setStep={setStep} />}
-                {step === 2 && <>Verification Screen</>}
+                {step === 2 && (
+                  <Verification values={values} setStep={setStep} />
+                )}
               </Form>
             );
           }}

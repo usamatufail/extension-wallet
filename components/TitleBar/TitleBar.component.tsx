@@ -11,12 +11,14 @@ interface TitleBarProps {
   close?: boolean;
   text?: string;
   step?: number;
+  closeAction?: () => void;
 }
 
 export const TitleBar = ({
   close = false,
   text = '',
   step,
+  closeAction,
 }: TitleBarProps): ReactElement => {
   return (
     <>
@@ -38,7 +40,7 @@ export const TitleBar = ({
         </div>
         {close && (
           <div className="titlebar__close">
-            <button className="titlebar__close-btn">
+            <button className="titlebar__close-btn" onClick={closeAction}>
               <div className="titlebar__close-btn-image">
                 <Image src="/img/cross.png" alt="home page" layout="fill" />
               </div>
