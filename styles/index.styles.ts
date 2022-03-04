@@ -8,6 +8,7 @@ const flexColumnCenter = css`
 
 export const homePage = css`
   background: url('/img/home/bg.png');
+  background-size: cover;
   min-height: 100vh;
   ${flexColumnCenter}
   justify-content: space-between;
