@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { css } from '@emotion/react';
 import { register } from 'styles';
 import { TitleBar, Input } from 'components';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import { EmailPhone } from 'sections';
 
-interface SignUpFormValues {
+export interface SignUpFormValues {
   email: string;
   phone: string;
   verificationCode: string;
@@ -19,7 +19,26 @@ interface SignUpFormValues {
 }
 
 const Home: NextPage = () => {
-  const [step, setStep] = useState('');
+  const [step, setStep] = useState(1);
+  const [titleText, setTitleText] = useState('');
+
+  useEffect(() => {
+    switch (step) {
+      case 2:
+        setTitleText('Verification');
+        break;
+      case 3:
+        setTitleText('Create NEAR Account');
+        break;
+      case 4:
+      case 5:
+        setTitleText('Secure your account');
+        break;
+      default:
+        setTitleText('');
+    }
+  }, [step]);
+
   const initialValues: SignUpFormValues = {
     email: '',
     phone: '',
@@ -43,20 +62,22 @@ const Home: NextPage = () => {
           ${register}
         `}
       >
-        <TitleBar />
+        <TitleBar close={step !== 1} text={titleText} />
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {
             console.log({ values, actions });
             actions.setSubmitting(false);
           }}
-        >
-          <Form>
-            {/* Phone Section */}
-            <EmailPhone />
-            {/* Phone Section End */}
-          </Form>
-        </Formik>
+          component={({ values }) => {
+            return (
+              <Form>
+                {step === 1 && <EmailPhone values={values} setStep={setStep} />}
+                {step === 2 && <>Verification Screen</>}
+              </Form>
+            );
+          }}
+        ></Formik>
       </div>
     </div>
   );

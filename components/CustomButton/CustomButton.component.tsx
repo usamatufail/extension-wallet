@@ -14,15 +14,18 @@ interface ButtonProps {
   type?: 'primary' | 'secondary' | 'ghost';
   disabled?: boolean;
   children: ReactNode;
+  onClick?: () => void;
 }
 
 export const CustomButton = ({
   type = 'primary',
   disabled,
   children,
+  onClick = () => {},
 }: ButtonProps): ReactElement => {
   return (
     <Button
+      onClick={disabled ? () => {} : onClick}
       css={css`
         ${buttonStyles};
         ${type === 'ghost' && !disabled && ghostStyles};

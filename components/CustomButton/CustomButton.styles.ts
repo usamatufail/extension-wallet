@@ -7,7 +7,8 @@ export const buttonStyles = css`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 48px;
+  gap: 20px;
+  height: 40px;
   .button__text {
     font-family: Manrope;
     font-style: normal;

@@ -7,10 +7,17 @@ import {
 } from './TitleBar.styles';
 import Image from 'next/image';
 
-export const TitleBar = (): ReactElement => {
-  const close = false;
-  const text = 'Verification';
-  const step = 1;
+interface TitleBarProps {
+  close?: boolean;
+  text?: string;
+  step?: number;
+}
+
+export const TitleBar = ({
+  close = false,
+  text = '',
+  step,
+}: TitleBarProps): ReactElement => {
   return (
     <>
       <div

@@ -20,5 +20,9 @@ export const inputStyles = css`
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
+    &:focus-visible {
+      outline: none;
+      border: 2px solid #885fff;
+    }
   }
 `;

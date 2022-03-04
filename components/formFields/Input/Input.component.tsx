@@ -9,6 +9,7 @@ interface InputProps {
   placeholder: string;
   type?: 'email' | 'number' | 'text';
   label?: string;
+  validate?: (value: string) => string | undefined;
 }
 
 export const Input = ({
@@ -17,6 +18,7 @@ export const Input = ({
   placeholder,
   type = 'text',
   label = '',
+  validate,
 }: InputProps): ReactElement => {
   return (
     <div
@@ -33,6 +35,7 @@ export const Input = ({
         id={id}
         placeholder={placeholder}
         type={type}
+        validate={validate}
       />
     </div>
   );
